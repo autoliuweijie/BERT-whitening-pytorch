@@ -97,6 +97,7 @@ ENV/
 
 data/*
 data/downstream/*
+!data/downstream
 !data/downstream/get_transfer_data.bash
 !data/downstream/tokenizer.sed
 !data/download_datasets.sh
