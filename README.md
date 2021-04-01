@@ -97,4 +97,5 @@ $ python3 ./eval_with_whitening\(nli\).py
 ## 参考文献
 
 [1] 苏剑林, [你可能不需要BERT-flow：一个线性变换媲美BERT-flow](https://kexue.fm/archives/8069), 2020.
+
 [2] 苏剑林, [Keras版本BERT-whitening](https://github.com/bojone/BERT-whitening), 2020.
