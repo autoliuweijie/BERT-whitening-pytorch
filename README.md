@@ -4,7 +4,7 @@ This is the Pytorch implementation of ["Whitening Sentence Representations for B
 
 BERT-whitening is very practical in text semantic search, in which the whitening operation not only improves the performance of **unsupervised semantic vector matching**, but also reduces the vector dimension, which is beneficial to reduce memory usage and improve retrieval efficiency for vector search engines, e.g., FAISS.
 
-This method was first proposed by the Jianlin Su in his blog[\[1\]](https://kexue.fm/archives/8069). 
+This method was first proposed by Jianlin Su in his blog[\[1\]](https://kexue.fm/archives/8069). 
 
 ## Reproduce the experimental results
 
