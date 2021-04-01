@@ -9,13 +9,13 @@ This method was first proposed by the Jianlin Su in his blog[\[1\]](https://kexu
 ## Reproduce the experimental results
 
 ### Preparation
-**Download datasets**:
+Download datasets
 ```sh
 $ cd data/
 $ ./download_datasets.sh
 $ cd ../
 ```
-**Download models**:
+Download models
 ```sh
 $ cd model/
 $ ./download_models.sh
