@@ -22,7 +22,7 @@ $ ./download_models.sh
 $ cd ../
 ```
 
-After the datasets and models files are downloaded, the ``data/`` and ``model/`` directories are as follows:
+After the datasets and models are downloaded, the ``data/`` and ``model/`` directories are as follows:
 ```
 ├── data
 │   ├── AllNLI.tsv
