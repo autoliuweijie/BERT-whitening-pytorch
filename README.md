@@ -1,12 +1,12 @@
 # BERT-whitening
 
-这是["Whitening Sentence Representations for Better Semantics and Faster Retrieval"](https://arxiv.org/abs/2103.15316)这篇论文的Pytorch实现版本。
+这是["Whitening Sentence Representations for Better Semantics and Faster Retrieval"](https://arxiv.org/abs/2103.15316)这篇论文的Pytorch实现版本.
 
 BERT-whitening在工业界的文本语义相似度检索方面十分实用，whitening操作不仅提升了**无监督语义向量相似匹配**的效果，还能降低了向量维度，这有利于FAISS等向量检索引擎降低内存占用和提高检索速度。
 
 本方法是苏剑林大神在其博客中首次提出的[\[1\]](https://kexue.fm/archives/8069)，本人看到后就联想到了PCA算法的降维特性，遂和苏神交流，再次感谢苏神带飞！
 
-## 复现步骤
+## 复现论文中的结果
 
 ### 准备工作
 **下载数据集**:
@@ -97,3 +97,4 @@ $ python3 ./eval_with_whitening\(nli\).py
 ## 参考文献
 
 [1] 苏剑林, [你可能不需要BERT-flow：一个线性变换媲美BERT-flow](https://kexue.fm/archives/8069), 2020.
+[2] 苏剑林, [Keras版本BERT-whitening](https://github.com/bojone/BERT-whitening), 2020.
