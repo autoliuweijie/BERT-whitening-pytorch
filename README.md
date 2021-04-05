@@ -95,7 +95,9 @@ Results:
 
 ### Semantic retrieve with FAISS
 
-``BERT-whitening``的一个重要作用是可以在提高语义相似检索效果的同时，还能降低内存占用和提高检索速度。在本实验中，我们使用[Quora Duplicate Questions Dataset](https://data.quora.com/First-Quora-Dataset-Release-Question-Pairs)和[FAISS](https://github.com/facebookresearch/faiss)向量检索引擎来测量不同模型的检索效果和效率。该数据集中包含了400000组``question1-question2``对，并标注了是否相似。我们提取所有``question2``的语义向量存入到FAISS中（共299364条)，然后使用``question1``的语义向量去FAISS中检索(共290654条)。用``MRR@10``衡量检索的效果，``Average Time Cost (ms)``衡量检索的效率，``Memory Usage (GB)``衡量内存占用量。FAISS的配置为CPU模型，``n_clusters = 1024``和``nprobe = 5``，所用处理器为``Intel(R) Xeon(R) CPU E5-2699 v4 @ 2.20GHz``.
+``BERT-whitening``的一个重要作用是可以在提高语义相似检索效果的同时，还能降低内存占用和提高检索速度。在本实验中，我们使用[Quora Duplicate Questions Dataset](https://data.quora.com/First-Quora-Dataset-Release-Question-Pairs)和[FAISS](https://github.com/facebookresearch/faiss)向量检索引擎来测量不同模型的检索效果和效率。该数据集中包含了400000组``question1-question2``对，并标注了是否相似。我们提取所有``question2``的语义向量存入到FAISS中（共299364条)，然后使用``question1``的语义向量去FAISS中检索(共290654条)。用``MRR@10``衡量检索的效果，``Average Time Cost (ms)``衡量检索的效率，``Memory Usage (GB)``衡量内存占用量。
+
+FAISS的配置为CPU模式，``nlist = 1024``和``nprobe = 5``，CPU型号为``Intel(R) Xeon(R) CPU E5-2699 v4 @ 2.20GHz``.
 
 修改``qqp_search_with_faiss.py``中的``model_name``, 然后执行
 
