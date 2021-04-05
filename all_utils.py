@@ -1,11 +1,13 @@
 # coding: utf-8
 import os
+import sys
 import torch
 import numpy as np
 from transformers import BertModel, BertTokenizer
 from tqdm import tqdm
 import scipy.stats
 import pickle
+import requests
 
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -94,10 +96,69 @@ def transform_and_normalize(vecs, kernel, bias):
     """
     if not (kernel is None or bias is None):
         vecs = (vecs + bias).dot(kernel)
-    return vecs / (vecs**2).sum(axis=1, keepdims=True)**0.5
+    return normalize(vecs)
 
 
 def normalize(vecs):
     """标准化
     """
     return vecs / (vecs**2).sum(axis=1, keepdims=True)**0.5
+
+
+def http_get(url, path):
+    """
+    Downloads a URL to a given path on disc
+    """
+    if os.path.dirname(path) != '':
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+
+    req = requests.get(url, stream=True)
+    if req.status_code != 200:
+        print("Exception when trying to download {}. Response {}".format(url, req.status_code), file=sys.stderr)
+        req.raise_for_status()
+        return
+
+    download_filepath = path+"_part"
+    with open(download_filepath, "wb") as file_binary:
+        content_length = req.headers.get('Content-Length')
+        total = int(content_length) if content_length is not None else None
+        progress = tqdm(unit="B", total=total, unit_scale=True)
+        for chunk in req.iter_content(chunk_size=1024):
+            if chunk: # filter out keep-alive new chunks
+                progress.update(len(chunk))
+                file_binary.write(chunk)
+
+    os.rename(download_filepath, path)
+    progress.close()
+
+
+import inspect
+
+def get_size(obj, seen=None):
+    """Recursively finds size of objects in bytes"""
+    size = sys.getsizeof(obj)
+    if seen is None:
+        seen = set()
+    obj_id = id(obj)
+    if obj_id in seen:
+        return 0
+    # Important mark as seen *before* entering recursion to gracefully handle
+    # self-referential objects
+    seen.add(obj_id)
+    if hasattr(obj, '__dict__'):
+        for cls in obj.__class__.__mro__:
+            if '__dict__' in cls.__dict__:
+                d = cls.__dict__['__dict__']
+                if inspect.isgetsetdescriptor(d) or inspect.ismemberdescriptor(d):
+                    size += get_size(obj.__dict__, seen)
+                break
+    if isinstance(obj, dict):
+        size += sum((get_size(v, seen) for v in obj.values()))
+        size += sum((get_size(k, seen) for k in obj.keys()))
+    elif hasattr(obj, '__iter__') and not isinstance(obj, (str, bytes, bytearray)):
+        size += sum((get_size(i, seen) for i in obj))
+
+    if hasattr(obj, '__slots__'): # can have __slots__ with __dict__
+        size += sum(get_size(getattr(obj, s), seen) for s in obj.__slots__ if hasattr(obj, s))
+
+    return size
