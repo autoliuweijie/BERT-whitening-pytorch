@@ -91,7 +91,29 @@ Results:
 |SBERTbase-nli-whiten(nli)        | 0.6868  | 0.7646 | 0.7626 | 0.8230 | 0.7964 | 0.7896 | 0.7653 |
 |SBERTbase-nli-whiten-256(nli)    | 0.6891  | 0.7703 | 0.7658 | 0.8229 | 0.7828 | 0.7880 | 0.7678 |
 |SBERTlarge-nli-whiten(nli)       | 0.7074  | 0.7756 | 0.7720 | 0.8285 | 0.8080 | 0.7910 | 0.7589 |
-|SBERTlarge-nli-whiten-384(nli)   | 0.7123  | 0.7893 | 0.7790 | 0.8355 | 0.8057 | 0.8037 | 0.7689 |
+|SBERTlarge-nli-whiten-384(nli)   |  0.7123 | 0.7893 | 0.7790 | 0.8355 | 0.8057 | 0.8037 | 0.7689 |
+
+### Semantic search with FAISS
+
+``BERT-whitening``的一个重要作用是可以在提高语义相似检索效果的同时，还能降低内存占用和提高检索速度。在本实验中，我们使用[Quora Duplicate Questions Dataset](https://data.quora.com/First-Quora-Dataset-Release-Question-Pairs)和[FAISS]向量检索引擎来测量不同模型的检索效果和效率。该数据集中包含了400000组``question1-question2``对，并标注了是否相似。我们提取所有``question2``的语义向量存入到FAISS中（共xxx条)，然后使用``question1``的语义向量去FAISS中检索(共xxx条)。用``MRR@10``衡量检索的效果，``Average Time Cost (ms)``衡量检索的效率，``Memory Usage (GB)``衡量内存占用量。FAISS的配置为xxx
+
+修改``qqp_search_with_faiss.py``中的``model_name``, 然后执行
+
+```sh
+$ python3 qqp_search_with_faiss.py
+```
+
+不同模型的实验结果如下：
+
+|Model                            | MRR@10  | Average Time Cost (ms) | Memory Usage (GB) | 
+|:--                              | :--:    | :--:                   | :--:              |
+|BERTbase-first_last_avg          | xxxxxx  | xxxxxx                 | xxxxxx            |
+|BERTbase-whiten(nli)             | xxxxxx  | xxxxxx                 | xxxxxx            |
+|BERTbase-whiten-256(nli)         | xxxxxx  | xxxxxx                 | xxxxxx            |
+|BERTbase-whiten(target)          | xxxxxx  | xxxxxx                 | xxxxxx            |
+|BERTbase-whiten-256(target)      | xxxxxx  | xxxxxx                 | xxxxxx            |
+
+
 
 
 ## References
