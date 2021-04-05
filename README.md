@@ -107,7 +107,7 @@ $ python3 qqp_search_with_faiss.py
 
 |Model                            | MRR@10  | Average Time Cost (ms) | Memory Usage (GB) | 
 |:--                              | :--:    | :--:                   | :--:              |
-|BERTbase-first_last_avg          | xxxxxx  | xxxxxx                 | xxxxxx            |
+|BERTbase-first_last_avg          | 0.5531  | 0.7488                 | 0.8564            |
 |BERTbase-whiten(nli)             | xxxxxx  | xxxxxx                 | xxxxxx            |
 |BERTbase-whiten-256(nli)         | xxxxxx  | xxxxxx                 | xxxxxx            |
 |BERTbase-whiten(target)          | xxxxxx  | xxxxxx                 | xxxxxx            |
