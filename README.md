@@ -109,19 +109,20 @@ $ python3 qqp_search_with_faiss.py
 
 |**Model**                        | **MRR@10** | **Average Retrieve Time (ms)** | **Memory Usage (GB)** | 
 |:--                              | :--:       | :--:                           | :--:                  |
-|                                   **BERT-base**                                                       |           
+|                                   **BERTbase-XX **                                                    |           
 |BERTbase-first_last_avg          | 0.5531     | 0.7488                         | 0.8564                |
 |BERTbase-whiten(nli)             | 0.5571     | 0.9735                         | 0.8564                |
 |BERTbase-whiten-256(nli)         | 0.5616     | 0.2698                         | 0.2854                |
 |BERTbase-whiten(target)          | **0.6104** | 0.8436                         | 0.8564                |
 |BERTbase-whiten-256(target)      | 0.5957     | **0.1910**                     | **0.2854**            |
-|                                  **BERT-large**                                                       | 
+|                                  **BERTlarge-XX **                                                    | 
 |BERTlarge-first_last_avg         | 0.5667     | 1.2015                         | 1.1419                |
 |BERTlarge-whiten(nli)            | 0.5783     | 1.3458                         | 1.1419                |
 |BERTlarge-whiten-384(nli)        | 0.5798     | 0.4118                         | 0.4282                |
 |BERTlarge-whiten(target)         | 0.6178     | 1.1418                         | 1.1419                |
 |BERTlarge-whiten-384(target)     | **0.6194** | **0.3301**                     | **0.4282**            |
 
+从实验结果来看，使用whitening技术分别将BERTbase和BERTlarge的向量维度降低至256和384维，可以显著降低内存的占用和检索时间，同时提升检索效果。内存占用与向量维度成严格正比，而平均检索时间与向量维度并不是严格正比关系，这是因为FAISS在分簇时存在一定差异，这会导致检索效率也存在一定波动，但总体来看，低维度能够大幅提高检索效率。
 
 
 ## References
