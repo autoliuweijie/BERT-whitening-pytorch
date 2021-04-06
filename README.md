@@ -95,7 +95,7 @@ Results:
 
 ### Semantic retrieve with FAISS
 
-``BERT-whitening``的一个重要作用是可以在提高语义相似检索效果的同时，还能降低内存占用和提高检索速度。在本实验中，我们使用[Quora Duplicate Questions Dataset](https://data.quora.com/First-Quora-Dataset-Release-Question-Pairs)和[FAISS](https://github.com/facebookresearch/faiss)向量检索引擎来测量不同模型的检索效果和效率。该数据集中包含了400000组``question1-question2``对，并标注了是否相似。我们提取所有``question2``的语义向量存入到FAISS中（共299364条)，然后使用``question1``的语义向量去FAISS中检索(共290654条)。用``MRR@10``衡量检索的效果，``Average Time Cost (ms)``衡量检索的效率，``Memory Usage (GB)``衡量内存占用量。
+``BERT-whitening``的一个重要作用是可以在提高语义相似检索效果的同时，还能降低内存占用和提高检索速度。在本实验中，我们使用[Quora Duplicate Questions Dataset](https://data.quora.com/First-Quora-Dataset-Release-Question-Pairs)和[FAISS](https://github.com/facebookresearch/faiss)向量检索引擎来测量不同模型的检索效果和效率。该数据集中包含了400000组``question1-question2``对，并标注了是否相似。我们提取所有``question2``的语义向量存入到FAISS中（共299364条)，然后使用``question1``的语义向量去FAISS中检索(共290654条)。用``MRR@10``衡量检索的效果，``Average Retrieve Time (ms)``衡量检索的效率，``Memory Usage (GB)``衡量内存占用量。
 
 FAISS的配置为CPU模式，``nlist = 1024``和``nprobe = 5``，CPU型号为``Intel(R) Xeon(R) CPU E5-2699 v4 @ 2.20GHz``.
 
@@ -107,16 +107,20 @@ $ python3 qqp_search_with_faiss.py
 
 不同模型的实验结果如下：
 
-|**Model**                        | **MRR@10** | **Average Time Cost (ms)** | **Memory Usage (GB)** | 
-|:--                              | :--:       | :--:                       | :--:                  |
-|                                   **BERT-base**                                                   |           
-|BERTbase-first_last_avg          | 0.5531     | 0.7488                     | 0.8564                |
-|BERTbase-whiten(nli)             | 0.5571     | 0.9735                     | 0.8564                |
-|BERTbase-whiten-256(nli)         | 0.5616     | 0.2698                     | 0.2854                |
-|BERTbase-whiten(target)          | **0.6104** | 0.8436                     | 0.8564                |
-|BERTbase-whiten-256(target)      | 0.5957     | **0.1910**                 | **0.2854**            |
-|                                  **BERT-large**                                                   | 
-
+|**Model**                        | **MRR@10** | **Average Retrieve Time (ms)** | **Memory Usage (GB)** | 
+|:--                              | :--:       | :--:                           | :--:                  |
+|                                   **BERT-base**                                                       |           
+|BERTbase-first_last_avg          | 0.5531     | 0.7488                         | 0.8564                |
+|BERTbase-whiten(nli)             | 0.5571     | 0.9735                         | 0.8564                |
+|BERTbase-whiten-256(nli)         | 0.5616     | 0.2698                         | 0.2854                |
+|BERTbase-whiten(target)          | **0.6104** | 0.8436                         | 0.8564                |
+|BERTbase-whiten-256(target)      | 0.5957     | **0.1910**                     | **0.2854**            |
+|                                  **BERT-large**                                                       | 
+|BERTlarge-first_last_avg         | 0.5667     | 1.2015                         | 1.1419                |
+|BERTlarge-whiten(nli)            | 0.5783     | 1.3458                         | 1.1419                |
+|BERTlarge-whiten-384(nli)        | 0.5798     | 0.4118                         | 0.4282                |
+|BERTlarge-whiten(target)         | 0.6178     | 1.1418                         | 1.1419                |
+|BERTlarge-whiten-384(target)     | **0.6194** | **0.3301**                     | **0.4282**            |
 
 
 
