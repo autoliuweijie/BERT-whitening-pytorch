@@ -109,13 +109,13 @@ $ python3 qqp_search_with_faiss.py
 
 |**Model**                        | **MRR@10** | **Average Retrieve Time (ms)** | **Memory Usage (GB)** | 
 |:--                              | :--:       | :--:                           | :--:                  |
-|                                   **BERTbase-XX **                                                    |           
+|                                   **BERTbase-XX**                                                     |           
 |BERTbase-first_last_avg          | 0.5531     | 0.7488                         | 0.8564                |
 |BERTbase-whiten(nli)             | 0.5571     | 0.9735                         | 0.8564                |
 |BERTbase-whiten-256(nli)         | 0.5616     | 0.2698                         | 0.2854                |
 |BERTbase-whiten(target)          | **0.6104** | 0.8436                         | 0.8564                |
 |BERTbase-whiten-256(target)      | 0.5957     | **0.1910**                     | **0.2854**            |
-|                                  **BERTlarge-XX **                                                    | 
+|                                  **BERTlarge-XX**                                                     | 
 |BERTlarge-first_last_avg         | 0.5667     | 1.2015                         | 1.1419                |
 |BERTlarge-whiten(nli)            | 0.5783     | 1.3458                         | 1.1419                |
 |BERTlarge-whiten-384(nli)        | 0.5798     | 0.4118                         | 0.4282                |
