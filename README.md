@@ -95,17 +95,15 @@ Results:
 
 ### Semantic retrieve with FAISS
 
-``BERT-whitening``的一个重要作用是可以在提高语义相似检索效果的同时，还能降低内存占用和提高检索速度。在本实验中，我们使用[Quora Duplicate Questions Dataset](https://data.quora.com/First-Quora-Dataset-Release-Question-Pairs)和[FAISS](https://github.com/facebookresearch/faiss)向量检索引擎来测量不同模型的检索效果和效率。该数据集中包含了400000组``question1-question2``对，并标注了是否相似。我们提取所有``question2``的语义向量存入到FAISS中（共299364条)，然后使用``question1``的语义向量去FAISS中检索(共290654条)。用``MRR@10``衡量检索的效果，``Average Retrieve Time (ms)``衡量检索的效率，``Memory Usage (GB)``衡量内存占用量。
+An important function of ``BERT-whitening`` is that it can not only improve the effect of semantic similarity retrieval, but also reduce memory usage and increase retrieval speed. In this experiment, we use [Quora Duplicate Questions Dataset](https://data.quora.com/First-Quora-Dataset-Release-Question-Pairs) and [FAISS](https://github.com/facebookresearch/faiss), a vector retrieval engine, to measure the retrieval effect and efficiency of different models. The dataset contains more than 400,000 pairs of question1-question2, and it is marked whether they are similar. We extract all the semantic vectors of question2 and store them in FAISS (299,364 vectors in total), and then use the semantic vectors of question1 to retrieve them in FAISS (290,654 vectors in total). ``MRR@10`` is used to measure the effect of retrieval, ``Average Retrieve Time (ms)`` is used to measure retrieval efficiency, and ``Memory Usage (GB)`` is used to measure memory usage. FAISS is configured in CPU mode, ``nlist = 1024'' and ``nprobe = 5'', and the CPU is ``Intel(R) Xeon(R) CPU E5-2699 v4 @ 2.20GHz``.
 
-FAISS的配置为CPU模式，``nlist = 1024``和``nprobe = 5``，CPU型号为``Intel(R) Xeon(R) CPU E5-2699 v4 @ 2.20GHz``.
-
-修改``qqp_search_with_faiss.py``中的``model_name``, 然后执行
+Modify ``model_name'' in ``qqp_search_with_faiss.py'', and then execute:
 
 ```sh
 $ python3 qqp_search_with_faiss.py
 ```
 
-不同模型的实验结果如下：
+The experimental results of different models are as follows:
 
 |**Model**                        | **MRR@10** | **Average Retrieve Time (ms)** | **Memory Usage (GB)** | 
 |:--                              | :--:       | :--:                           | :--:                  |
@@ -122,7 +120,7 @@ $ python3 qqp_search_with_faiss.py
 |BERTlarge-whiten(target)         | 0.6178     | 1.1418                         | 1.1419                |
 |BERTlarge-whiten-384(target)     | **0.6194** | **0.3301**                     | **0.4282**            |
 
-从实验结果来看，使用whitening技术分别将BERTbase和BERTlarge的向量维度降低至256和384维，可以显著降低内存的占用和检索时间，同时提升检索效果。内存占用与向量维度成严格正比，而平均检索时间与向量维度并不是严格正比关系，这是因为FAISS在分簇时存在一定差异，这会导致检索效率也存在一定波动，但总体来看，低维度能够大幅提高检索效率。
+From the experimental results, the use of ``whitening`` to reduce the vector sizes of BERTbase and BERTlarge to 256 and 384, respectively, can significantly reduce memory usage and retrieval time, while improving retrieval results. The memory usage is strictly proportional to the vector dimension, while the average retrieval time is not strictly proportional to the vector dimension. This is because FAISS has a difference in clustering question2, which will cause some fluctuations in retrieval efficiency, but in general, the lower its dimensionality, the higher the retrieval efficiency.
 
 
 ## References
