@@ -28,13 +28,26 @@ MODEL_ZOOS = {
 
     'BERTbase-cls': {
         'encoder': './model/bert-base-uncased',
+        'pooling': 'cls',
+    },
+
+    'BERTbase-whiten(target)': {
+        'encoder': './model/bert-base-uncased',
         'pooling': 'first_last_avg',
+        'n_components': 768,
     },
 
     'BERTbase-whiten-256(target)': {
         'encoder': './model/bert-base-uncased',
-        'pooling': 'cls',
+        'pooling': 'first_last_avg',
         'n_components': 256,
+    },
+
+    'BERTbase-whiten(NLI)': {
+        'encoder': './model/bert-base-uncased',
+        'pooling': 'first_last_avg',
+        'whiten_file': './whiten/bert-base-uncased-first_last_avg-whiten(NLI).pkl',
+        'n_components': 768,
     },
 
     'BERTbase-whiten-256(NLI)': {
@@ -42,15 +55,52 @@ MODEL_ZOOS = {
         'pooling': 'first_last_avg',
         'whiten_file': './whiten/bert-base-uncased-first_last_avg-whiten(NLI).pkl',
         'n_components': 256,
-    }
+    },
 
+    'BERTlarge-first_last_avg': {
+        'encoder': './model/bert-large-uncased',
+        'pooling': 'first_last_avg',
+    },
+
+    'BERTlarge-whiten(NLI)': {
+        'encoder': './model/bert-large-uncased',
+        'pooling': 'first_last_avg',
+        'whiten_file': './whiten/bert-large-uncased-first_last_avg-whiten(NLI).pkl',
+        'n_components': 1024,
+    },
+
+    'BERTlarge-whiten-384(NLI)': {
+        'encoder': './model/bert-large-uncased',
+        'pooling': 'first_last_avg',
+        'whiten_file': './whiten/bert-large-uncased-first_last_avg-whiten(NLI).pkl',
+        'n_components': 384,
+    },
+
+    'BERTlarge-whiten(target)': {
+        'encoder': './model/bert-large-uncased',
+        'pooling': 'first_last_avg',
+        'n_components': 1024,
+    },
+
+    'BERTlarge-whiten-384(target)': {
+        'encoder': './model/bert-large-uncased',
+        'pooling': 'first_last_avg',
+        'n_components': 384,
+    },
 }
 
 
 # Model config
+# model_name ='BERTbase-whiten(NLI)'
 # model_name ='BERTbase-whiten-256(NLI)'
 # model_name ='BERTbase-whiten-256(target)'
-model_name ='BERTbase-first_last_avg'
+# model_name ='BERTbase-whiten(target)'
+# model_name ='BERTbase-first_last_avg'                                                                                                                                                                                                                                                       
+# model_name ='BERTlarge-whiten(NLI)'
+# model_name ='BERTlarge-whiten-384(NLI)'
+# model_name ='BERTlarge-whiten(target)'
+# model_name ='BERTlarge-whiten-384(target)'
+model_name ='BERTlarge-first_last_avg'
 max_length = 64
 
 
