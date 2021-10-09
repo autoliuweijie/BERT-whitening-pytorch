@@ -69,7 +69,7 @@ def compute_kernel_bias(vecs):
     cov = np.cov(vecs.T)
     u, s, vh = np.linalg.svd(cov)
     W = np.dot(u, np.diag(s**0.5))
-    W = np.linalg.inv(W.T)
+    # W = np.linalg.inv(W.T) # this line is should not be there
     return W, -mu
 
 
